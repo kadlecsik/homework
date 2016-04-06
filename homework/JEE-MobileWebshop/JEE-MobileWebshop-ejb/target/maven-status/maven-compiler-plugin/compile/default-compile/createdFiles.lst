@@ -1,0 +1,4 @@
+csk/mobilewebshop/constraint/DateOfBirthConstraint.class
+csk/mobilewebshop/service/UserManagementService.class
+csk/mobilewebshop/constraint/DateOfBirthValidator.class
+csk/mobilewebshop/dto/UserDTO.class
