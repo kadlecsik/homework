@@ -1,18 +1,20 @@
+/**
+ *
+ * @author Csaba Kadlecsik <kadlecsik@outlook.com>
+ */
 package csk.mobilewebshop.dto;
 
+import csk.mobilewebshop.annotation.Validate;
 import csk.mobilewebshop.constraint.DateOfBirthConstraint;
+import csk.mobilewebshop.interceptor.BeanValidation;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Csaba Kadlecsik <kadlecsik@outlook.com>
- */
+@Validate
 @DateOfBirthConstraint
 public class UserDTO {
 
@@ -39,8 +41,6 @@ public class UserDTO {
     private LocalDate registrationDate;
 
     private boolean admin;
-
-    //private List<MobileDTO> cart;
 
     public String getUserName() {
         return userName;
@@ -82,12 +82,20 @@ public class UserDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public void setDateOfBirth(int year, int month, int day) {
+        this.dateOfBirth = LocalDate.of(year, month, day);
+    }
+
     public LocalDate getRegistrationDate() {
         return registrationDate;
     }
 
     public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public void setRegistrationDate(int year, int month, int day) {
+        this.registrationDate = LocalDate.of(year, month, day);
     }
 
     public boolean isAdmin() {
@@ -97,15 +105,7 @@ public class UserDTO {
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
-    /*
-    public List<MobileDTO> getCart() {
-        return cart;
-    }
 
-    public void setCart(List<MobileDTO> cart) {
-        this.cart = cart;
-    }
-    */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -127,5 +127,4 @@ public class UserDTO {
         final UserDTO other = (UserDTO) obj;
         return Objects.equals(this.userName, other.userName);
     }
-
 }
