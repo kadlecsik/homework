@@ -28,7 +28,6 @@ import javax.ws.rs.core.MediaType;
 @Path("/cart")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Stateful
 @BeanValidation
 public class CartRESTService implements Serializable{
     
@@ -44,19 +43,19 @@ public class CartRESTService implements Serializable{
 
     @POST
     @Path("/add")
-    public boolean addToCart(@Context HttpServletRequest request, MobileDTO mobile) {
+    public int addToCart(@Context HttpServletRequest request, MobileDTO mobile) {
         HttpSession session = request.getSession(true);
-        session.setMaxInactiveInterval(200);
+        session.setMaxInactiveInterval(-1);
         System.out.println(session.getId());
-        Object username = session.getAttribute("username");
+        Object username = session.getAttribute("user");
 
         if (username != null && username instanceof String && userManagementService.getUser(username.toString()) != null) {
             if (inventoryService.isMobileAvaible(mobile)) {
                 cartService.addToCart(mobile);
-                return true;
+                return 1;
             }
         }
-        return false;
+        return -1;
     }
 
     @GET

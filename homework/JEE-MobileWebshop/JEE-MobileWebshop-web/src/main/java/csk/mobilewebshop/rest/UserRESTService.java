@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,11 +32,10 @@ import javax.ws.rs.core.MediaType;
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Stateless
 @BeanValidation
 public class UserRESTService {
 
-    @EJB
+    @Inject
     private UserManagementService userManagementService;
 
     @POST
@@ -74,21 +74,21 @@ public class UserRESTService {
     
     @POST
     @Path("/login")
-    public boolean login(@Context HttpServletRequest request, UserDTO user) {
+    public int login(@Context HttpServletRequest request, UserDTO user) {
         HttpSession session = request.getSession(true);
 
         if (user.getPassword().equals(userManagementService.getUser(user.getUserName()).getPassword())) {
-            session.setMaxInactiveInterval(0);
+            session.setMaxInactiveInterval(-1);
             session.setAttribute("user", user.getUserName());
-            return true;
+            return 1;
         } else {
             session.invalidate();
-            return false;
+            return -1;
         }
     }
     
     @POST
-    @Path("/")
+    @Path("/logout")
     public void logout(@Context HttpServletRequest request) {
         HttpSession session = request.getSession(true);
         session.invalidate();
