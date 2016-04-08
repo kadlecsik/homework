@@ -1,7 +1,7 @@
-package csk.mobilewebshop.tests;
+package csk.mobilewebshop.dto;
 
-import csk.mobilewebshop.dto.MobileDTO;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -12,99 +12,107 @@ import org.junit.Test;
 public class MobileDTOTest {
 
     @Test
-    public void shouldRaiseExceptionCauseInvalidId() {
+    public void shouldViolateUUIDValidation() {
         MobileDTO m = new MobileDTO("Iphone 6", "Apple", "Dummy_ID", 192000, 1);
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validatior = vf.getValidator();
         vf.close();
-        Set<ConstraintViolation<MobileDTO>> violations = validatior.validate(m);
+        List<ConstraintViolation<MobileDTO>> violations = new ArrayList(validatior.validate(m));
         Assert.assertEquals(1, violations.size());
+        Assert.assertEquals("Dummy_ID",violations.get(0).getInvalidValue());
 
     }
 
     @Test
-    public void shouldRaiseExceptionCauseNullId() {
+    public void shouldViolateIdNotNullValidation() {
         MobileDTO m = new MobileDTO("Iphone 6", "Apple", null, 192000, 1);
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validatior = vf.getValidator();
         vf.close();
-        Set<ConstraintViolation<MobileDTO>> violations = validatior.validate(m);
+        List<ConstraintViolation<MobileDTO>> violations = new ArrayList(validatior.validate(m));
         Assert.assertEquals(1, violations.size());
+        Assert.assertEquals(null,violations.get(0).getInvalidValue());
 
     }
 
     @Test
-    public void shouldRaiseExceptionCauseInvalidPrice() {
+    public void shouldViolatePriceValidation() {
         MobileDTO m = new MobileDTO("Iphone 6", "Apple", "de305d54-75b4-431b-adb2-eb6b9e546014", 0, 1);
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validatior = vf.getValidator();
         vf.close();
-        Set<ConstraintViolation<MobileDTO>> violations = validatior.validate(m);
+        List<ConstraintViolation<MobileDTO>> violations = new ArrayList(validatior.validate(m));
         Assert.assertEquals(1, violations.size());
+        Assert.assertEquals(0,violations.get(0).getInvalidValue());
 
     }
 
     @Test
-    public void shouldRaiseExceptionCauseInvalidPiece() {
+    public void shouldViolatePieceValidation() {
         MobileDTO m = new MobileDTO("Iphone 6", "Apple", "de305d54-75b4-431b-adb2-eb6b9e546014", 192000, -1);
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validatior = vf.getValidator();
         vf.close();
-        Set<ConstraintViolation<MobileDTO>> violations = validatior.validate(m);
+        List<ConstraintViolation<MobileDTO>> violations = new ArrayList(validatior.validate(m));
         Assert.assertEquals(1, violations.size());
+        Assert.assertEquals(-1,violations.get(0).getInvalidValue());
 
     }
 
     @Test
-    public void shouldRaiseExceptionCauseNullType() {
+    public void shouldViolateTypeNotNullValidation() {
         MobileDTO m = new MobileDTO(null, "Apple", "de305d54-75b4-431b-adb2-eb6b9e546014", 192000, 1);
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validatior = vf.getValidator();
         vf.close();
-        Set<ConstraintViolation<MobileDTO>> violations = validatior.validate(m);
+        List<ConstraintViolation<MobileDTO>> violations = new ArrayList(validatior.validate(m));
         Assert.assertEquals(1, violations.size());
+        Assert.assertEquals(null,violations.get(0).getInvalidValue());
 
     }
 
     @Test
-    public void shouldRaiseExceptionCauseTooShortType() {
+    public void shouldViolateTypeLengthValidation() {
         MobileDTO m = new MobileDTO("IP", "Apple", "de305d54-75b4-431b-adb2-eb6b9e546014", 192000, 1);
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validatior = vf.getValidator();
         vf.close();
-        Set<ConstraintViolation<MobileDTO>> violations = validatior.validate(m);
+        List<ConstraintViolation<MobileDTO>> violations = new ArrayList(validatior.validate(m));
         Assert.assertEquals(1, violations.size());
+        Assert.assertEquals("IP",violations.get(0).getInvalidValue());
 
     }
 
     @Test
-    public void shouldRaiseExceptionCauseNullManufacturer() {
+    public void shouldViolateManufacturerNotNullValidation() {
         MobileDTO m = new MobileDTO("Iphone 6", null, "de305d54-75b4-431b-adb2-eb6b9e546014", 192000, 1);
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validatior = vf.getValidator();
         vf.close();
-        Set<ConstraintViolation<MobileDTO>> violations = validatior.validate(m);
+        List<ConstraintViolation<MobileDTO>> violations = new ArrayList(validatior.validate(m));
         Assert.assertEquals(1, violations.size());
+        Assert.assertEquals(null,violations.get(0).getInvalidValue());
 
     }
 
     @Test
-    public void shouldRaiseExceptionCauseTooShortManufacturer() {
+    public void shouldViolateManufacturerLengthValidation() {
         MobileDTO m = new MobileDTO("Iphone 6", "AP", "de305d54-75b4-431b-adb2-eb6b9e546014", 192000, 1);
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validatior = vf.getValidator();
         vf.close();
-        Set<ConstraintViolation<MobileDTO>> violations = validatior.validate(m);
+        List<ConstraintViolation<MobileDTO>> violations = new ArrayList(validatior.validate(m));
         Assert.assertEquals(1, violations.size());
+        Assert.assertEquals("AP",violations.get(0).getInvalidValue());
     }
     
     @Test
-    public void shouldNotRaiseException() {
+    public void shouldNotViolateAnyValidation() {
         MobileDTO m = new MobileDTO("Iphone 6", "Apple", "de305d54-75b4-431b-adb2-eb6b9e546014", 192000, 1);
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validatior = vf.getValidator();
         vf.close();
-        Set<ConstraintViolation<MobileDTO>> violations = validatior.validate(m);
+        List<ConstraintViolation<MobileDTO>> violations = new ArrayList(validatior.validate(m));
         Assert.assertEquals(0, violations.size());
     }
 

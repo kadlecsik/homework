@@ -17,7 +17,7 @@ import javax.ejb.Startup;
 @Singleton
 @LocalBean
 @Startup
-@ConcurrencyManagement(ConcurrencyManagementType.BEAN)
+@ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class InventoryService {
 
     private final List<MobileDTO> inventory = new LinkedList<>();
@@ -29,6 +29,14 @@ public class InventoryService {
         addMobile(new MobileDTO("Mi5", "Xiaomi", UUID.randomUUID().toString(), 100000, 12));
         addMobile(new MobileDTO("Two", "OnePlus", UUID.randomUUID().toString(), 110000, 5));
         addMobile(new MobileDTO("Lumia 950", "Microsoft", UUID.randomUUID().toString(), 160000, 0));
+    }
+
+    private void decreasePiece(MobileDTO mobileDTO) {
+        if (mobileDTO.getPiece() > 0) {
+            mobileDTO.setPiece(mobileDTO.getPiece() - 1);
+        } else {
+            throw new IllegalRequestException("There is no " + mobileDTO.getManufacturer() + " " + mobileDTO.getType() + " left in the inventory.");
+        }
     }
 
     @Lock(LockType.WRITE)
@@ -47,15 +55,11 @@ public class InventoryService {
     public MobileDTO buyMobile(MobileDTO product) {
         for (MobileDTO p : inventory) {
             if (product.equals(p)) {
-                if (p.getPiece() > 0) {
-                    p.setPiece(p.getPiece() - 1);
-                    return p;
-                } else {
-                    throw new IllegalRequestException("There is no " + product.getManufacturer() + " " + product.getType() + " left in the inventory.");
-                }
+                decreasePiece(product);
+                return p;
             }
         }
-        throw new IllegalRequestException("Product does not exists.");
+        return product;
     }
 
     @Lock(LockType.READ)

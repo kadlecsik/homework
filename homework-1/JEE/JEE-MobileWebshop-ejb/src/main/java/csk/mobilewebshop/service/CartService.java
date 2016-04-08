@@ -14,10 +14,10 @@ import javax.inject.Inject;
 public class CartService {
 
     @Resource
-    SessionContext context;
+    private SessionContext context;
 
     @Inject
-    InventoryService inventoryService;
+    private InventoryService inventoryService;
 
     private final List<MobileDTO> cart = new LinkedList<>();
 

@@ -1,14 +1,14 @@
 package csk.mobilewebshop.exception;
 
-public class ExceptionDTO {
+public class ErrorDTO {
 
     private String message;
 
-    public ExceptionDTO() {
+    public ErrorDTO() {
         //Default construction
     }
 
-    public ExceptionDTO(String message) {
+    public ErrorDTO(String message) {
         this.message = message;
     }
 

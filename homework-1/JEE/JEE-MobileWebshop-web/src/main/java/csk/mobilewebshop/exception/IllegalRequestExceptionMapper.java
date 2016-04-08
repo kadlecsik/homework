@@ -1,8 +1,5 @@
 package csk.mobilewebshop.exception;
 
-
-
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -22,7 +19,7 @@ public class IllegalRequestExceptionMapper implements ExceptionMapper<IllegalReq
 
         logger.log(Level.ALL, "Illegal Request ", exception);
         return Response.status(Response.Status.BAD_REQUEST).entity(
-                new ExceptionDTO(exception.getMessage())
+                new ErrorDTO(exception.getMessage())
         ).type(MediaType.APPLICATION_JSON).build();
 
     }

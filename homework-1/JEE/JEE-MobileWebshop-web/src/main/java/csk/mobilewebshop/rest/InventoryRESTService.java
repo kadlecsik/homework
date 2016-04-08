@@ -24,10 +24,10 @@ import javax.ws.rs.core.MediaType;
 public class InventoryRESTService {
 
     @Inject
-    InventoryService inventoryService;
+    private InventoryService inventoryService;
 
     @Inject
-    UserManagementService userManagementService;
+    private UserManagementService userManagementService;
 
     @GET
     @Path("/")
@@ -41,8 +41,8 @@ public class InventoryRESTService {
     public MobileDTO addMobile(@Context HttpServletRequest request, MobileDTO mobile) {
         HttpSession session = request.getSession(true);
         session.setMaxInactiveInterval(3600);
-        Object username = session.getAttribute("user");
-        if ((username == null || !(username instanceof String)) || userManagementService.getUser(username.toString()) == null) {
+        Object username = session.getAttribute(UserRESTService.SESSION_USERNAME_KEY);
+        if (username == null || userManagementService.getUser(username.toString()) == null) {
             session.invalidate();
             throw new IllegalRequestException("No user logged in.");
         } else if (!userManagementService.getUser(username.toString()).isAdmin()) {

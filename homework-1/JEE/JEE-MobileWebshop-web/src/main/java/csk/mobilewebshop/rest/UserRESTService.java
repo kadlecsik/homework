@@ -29,6 +29,7 @@ public class UserRESTService {
     private UserManagementService userManagementService;
     
     private static final String USER_NOT_EXIST = "User does not exist.";
+    public static final String SESSION_USERNAME_KEY = "user";
 
     @POST
     @Path("/")
@@ -87,7 +88,7 @@ public class UserRESTService {
             throw new IllegalRequestException(USER_NOT_EXIST);
         } else if (storedUser.getPassword().equals(user.getPassword())) {
             session.setMaxInactiveInterval(3600);
-            session.setAttribute("user", user.getUserName());
+            session.setAttribute(SESSION_USERNAME_KEY, user.getUserName());
             return storedUser;
         } else {
             session.invalidate();

@@ -18,7 +18,7 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
     public Response toResponse(Throwable throwable) {
         logger.log(Level.SEVERE, "General Exception", throwable);
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
-                new ExceptionDTO(throwable.getMessage()
+                new ErrorDTO(throwable.getMessage()
                         + " - "
                         + throwable.getCause())).type(MediaType.APPLICATION_JSON).build();
     }
