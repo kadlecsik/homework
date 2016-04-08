@@ -18,7 +18,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
         <sonar.login>csaba.kadlecsik</sonar.login>
-        <sonar.password>5f1ceHDZ</sonar.password>
+        <sonar.password>*****</sonar.password>
         <sonar.host.url>http://sonar.codingmentor.xyz</sonar.host.url>
         <sonar.language>java</sonar.language>
     </properties>
