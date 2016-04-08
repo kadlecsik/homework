@@ -1,5 +1,8 @@
 package csk.mobilewebshop.exception;
 
+import javax.ejb.ApplicationException;
+
+@ApplicationException
 public class IllegalRequestException extends RuntimeException {
 
     public IllegalRequestException() {
