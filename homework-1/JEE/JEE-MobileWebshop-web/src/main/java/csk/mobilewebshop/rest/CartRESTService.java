@@ -42,7 +42,7 @@ public class CartRESTService implements Serializable{
         HttpSession session = request.getSession(true);
         session.setMaxInactiveInterval(3600);
 
-        Object username = session.getAttribute("user");
+        Object username = session.getAttribute(UserRESTService.SESSION_USERNAME_KEY);
         if ((username == null || !(username instanceof String)) || userManagementService.getUser(username.toString()) == null) {
             session.invalidate();
             throw new IllegalRequestException(NO_USER_ERR_MSG);
@@ -58,7 +58,7 @@ public class CartRESTService implements Serializable{
         HttpSession session = request.getSession(true);
         session.setMaxInactiveInterval(3600);
 
-        Object username = session.getAttribute("user");
+        Object username = session.getAttribute(UserRESTService.SESSION_USERNAME_KEY);
         if ((username == null || !(username instanceof String)) || userManagementService.getUser(username.toString()) == null) {
             session.invalidate();
             throw new IllegalRequestException(NO_USER_ERR_MSG);
@@ -77,7 +77,7 @@ public class CartRESTService implements Serializable{
         HttpSession session = request.getSession(true);
         session.setMaxInactiveInterval(3600);
 
-        Object username = session.getAttribute("user");
+        Object username = session.getAttribute(UserRESTService.SESSION_USERNAME_KEY);
         if ((username == null || !(username instanceof String)) || userManagementService.getUser(username.toString()) == null) {
             session.invalidate();
             throw new IllegalRequestException(NO_USER_ERR_MSG);
