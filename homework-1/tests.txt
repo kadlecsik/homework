@@ -1,0 +1,74 @@
+==========[UserRESTService]==========
+
+addUser()
+  http://localhost:8080/JEE-MobileWebshop-web/webresources/users/
+  POST
+  {
+      "admin": false,
+      "password": "User23++",
+      "registrationDate": "2015-10-10",
+      "userName": "user2"
+  }
+removeUser() -- addUser() után
+  http://localhost:8080/JEE-MobileWebshop-web/webresources/users/user2
+  DELETE
+editUser() -- addUser() után
+  http://localhost:8080/JEE-MobileWebshop-web/webresources/users/user2
+  PUT
+  {
+    "admin": false,
+    "password": "User23++",
+    "registrationDate": "2015-12-10",
+    "userName": "user2"
+  }
+getUser()
+  http://localhost:8080/JEE-MobileWebshop-web/webresources/users/user
+  GET
+getUsers()
+  http://localhost:8080/JEE-MobileWebshop-web/webresources/users
+  GET
+login()
+  http://localhost:8080/JEE-MobileWebshop-web/webresources/users/login
+  POST
+  {
+  "password": "user",
+	"userName": "user"
+  }
+logout()
+
+==========[CartRESTService]==========
+#login() a UserRESTService-ből user/user segítségével lefutott
+
+addToCart()
+  http://localhost:8080/JEE-MobileWebshop-web/webresources/cart/add
+  POST
+  {
+    "id": "3d795a20-49f4-47e2-90bd-9995e5516363",
+    "manufacturer": "Apple",
+    "type": "iPhone 5SE"
+  }
+checkout() --addToCart() után
+  http://localhost:8080/JEE-MobileWebshop-web/webresources/cart/checkout
+  GET
+
+showCart()
+  http://localhost:8080/JEE-MobileWebshop-web/webresources/cart
+  GET
+
+==========[InventoryRESTService]==========
+#login() a UserRESTService-ből admin/admin segítségével lefutott
+
+getMobiles()
+  http://localhost:8080/JEE-MobileWebshop-web/webresources/mobiles
+  GET
+
+addMobile()
+  http://localhost:8080/JEE-MobileWebshop-web/webresources/mobiles/
+  POST
+  {
+    "id": "09961f4d-9c18-4b77-b6bb-80f192920a8e",
+    "manufacturer": "Apple",
+    "piece": 4,
+    "price": 190000,
+    "type": "iPhone 6"
+  }
