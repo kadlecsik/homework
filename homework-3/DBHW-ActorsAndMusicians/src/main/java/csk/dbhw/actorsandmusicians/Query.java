@@ -4,7 +4,6 @@ import csk.dbhw.actorsandmusicians.arts.Album;
 import csk.dbhw.actorsandmusicians.people.Artist;
 import java.util.Date;
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -69,7 +68,7 @@ public class Query {
             tx = em.getTransaction();
             getData();
         } catch (PersistenceException e) {
-            LOG.severe((Supplier<String>) e);
+            LOG.severe(e.getMessage());
         } finally {
             if (em != null) {
                 em.close();

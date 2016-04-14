@@ -7,7 +7,6 @@ import csk.dbhw.actorsandmusicians.people.Gender;
 import csk.dbhw.actorsandmusicians.people.MainProfession;
 import csk.dbhw.actorsandmusicians.people.Scientist;
 import java.util.Date;
-import java.util.function.Supplier;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -134,7 +133,7 @@ public class Create {
             tx = em.getTransaction();
             connectData();
         } catch (PersistenceException e) {
-            LOG.severe((Supplier<String>) e);
+            LOG.severe(e.getMessage());
         } finally {
             if (em != null) {
                 em.close();
