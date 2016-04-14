@@ -68,7 +68,7 @@ public class Query {
             tx = em.getTransaction();
             getData();
         } catch (PersistenceException e) {
-            LOG.severe(e.getMessage());
+            LOG.log(Level.SEVERE,e.getMessage(),e);
         } finally {
             if (em != null) {
                 em.close();
